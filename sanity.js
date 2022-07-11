@@ -1,10 +1,7 @@
-//sanity backend와 client 이어주는 설정들
+//sanity에서 사용되는 설정, 명령들 정리(여기에 정리해두고 각 파일들에서 임포트해서 다시 정의 안하고 기능적으로 사용)
 
-import {
-  createImageUrlBuilder,
-  createCurrentUserHook,
-  createClient,
-} from 'next-sanity';
+import { createCurrentUserHook, createClient } from 'next-sanity';
+import imageUrlBuilder from '@sanity/image-url';
 
 export const config = {
   // Find your project ID and dataset in 'sanity.json' in your studio project.
@@ -26,9 +23,9 @@ export const config = {
 // Set up the client for fetching data in the getProps page functions
 export const sanityClient = createClient(config);
 
-//Set up a helper function for generating Image URLs with only the asset reference data in your domcuments. Read more: https://www.sanity.io/docs/image-url
-
-export const urlFor = (source) => createImageUrlBuilder(config).image(source);
+//Set up a helper function for generating Image URLs with only the asset reference data in your documents. Read more: https://www.sanity.io/docs/image-url
+const builder = imageUrlBuilder(config);
+export const urlFor = (source) => builder.image(source);
 
 // Helper function for using the current logged in user account
 export const useCurrentUser = createCurrentUserHook(config);
