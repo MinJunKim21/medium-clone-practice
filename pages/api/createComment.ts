@@ -12,7 +12,7 @@ const client = sanityClient(config);
 
 export default function createComment(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
   const { _id, name, email, comment } = JSON.parse(req.body);
 
